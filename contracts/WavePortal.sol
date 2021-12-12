@@ -20,4 +20,8 @@ contract WavePortal {
         console.log("A total of %d good people waved at us!", totalWaves);
         return totalWaves;
     }
+
+    function getRecentMsg() public view returns (string memory){
+        return message;
+    }
 }

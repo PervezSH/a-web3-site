@@ -27,6 +27,8 @@ const main = async () => {
     await waveTxn.wait();
 
     waveCount = await waveContract.getTotalWaves();
+    let recentMsg = await waveContract.getRecentMsg();
+    console.log("Recent Message : %s", recentMsg);
   };
   
   const runMain = async () => {
