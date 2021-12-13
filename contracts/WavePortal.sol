@@ -20,6 +20,10 @@ contract WavePortal {
     // An array of structs
     Wave[] waves;
 
+    // This is an address => uint mapping
+    // Store the address with the last time the user waved at us
+    mapping(address => uint256) public lastWavedAt;
+
     constructor () payable {
         console.log("I am Smart Contract!");
         
@@ -28,6 +32,14 @@ contract WavePortal {
     }
 
     function wave(string memory _message) public{
+        // Check if waver's last wave was before 15 minutes
+        require(
+            lastWavedAt[msg.sender] + 15 minutes < block.timestamp,
+            "Wait 15 min"
+        );
+        // Update current timestamp
+        lastWavedAt[msg.sender] = block.timestamp;
+
         totalWaves += 1;
         console.log("%s waved at us! and wrote: %s", msg.sender, _message);
 
