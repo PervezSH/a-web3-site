@@ -17,7 +17,7 @@ contract WavePortal {
     // An array of structs
     Wave[] waves;
 
-    constructor(){
+    constructor () payable {
         console.log("I am Smart Contract!");
     }
 
@@ -31,6 +31,17 @@ contract WavePortal {
         // Emitting NewWave Event
         // These logs get stored in the blockchain and are accessible using address of the contract
         emit NewWave(msg.sender, block.timestamp, _message);
+
+        // Send ETH to people waving at us
+        uint256 prizeAmount = 0.0001 ether;
+
+        require(
+            prizeAmount <= address(this).balance,
+            "Not Enough Money:("
+        );
+        // Sending money
+        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+        require(success, "Failed to send money:(");
     }
 
     function getTotalWaves() public view returns (uint256){
