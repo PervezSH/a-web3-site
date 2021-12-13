@@ -11,24 +11,26 @@ const main = async () => {
     console.log("Contract deployed to:", waveContract.address);
     console.log("Contract deployed by:", owner.address);
 
-    //Getting totalWave count
+    // Getting totalWave count
     let waveCount;
     waveCount = await waveContract.getTotalWaves();
-
-    //Waving at myself
+    console.log("A total of %d good people waved at us!", waveCount);
+    
+    // Waving at myself
     let waveTxn = await waveContract.wave("I'm the Owner");
-    await waveTxn.wait();
-
-    //Getting totalWave count again
-    waveCount = await waveContract.getTotalWaves();
-
-    //Random person waving at us
+    await waveTxn.wait(); // Wait for the transaction to be mined
+    
+    // Random person waving at us
     waveTxn = await waveContract.connect(randomPerson).wave("Heyyyyyy!");
-    await waveTxn.wait();
-
+    await waveTxn.wait(); // Wait for the transaction to be mined
+    
+    // Getting totalWave count again
     waveCount = await waveContract.getTotalWaves();
-    let recentMsg = await waveContract.getRecentMsg();
-    console.log("Recent Message : %s", recentMsg);
+    console.log("A total of %d good people waved at us!", waveCount);
+    
+    // Getting Wave struct
+    let allWaves = await waveContract.getAllWaves();
+    console.log(allWaves);
   };
   
   const runMain = async () => {
