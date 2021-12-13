@@ -4,24 +4,40 @@ import "hardhat/console.sol";
 
 contract WavePortal {
     uint256 totalWaves;
-    string message;
+
+    // Event is an inheritable member of a contract, it is emitted and stores the arguments passed in transaction logs
+    event NewWave(address indexed from, uint256 timestamp, string message);
+
+    struct Wave{
+        address waver;
+        string message;
+        uint256 timestamp;
+    }
+
+    // An array of structs
+    Wave[] waves;
 
     constructor(){
-        console.log("I am smart");
+        console.log("I am Smart Contract!");
     }
 
     function wave(string memory _message) public{
         totalWaves += 1;
-        message = _message;
-        console.log("%s waved at us! and wrote: %s", msg.sender, message);
+        console.log("%s waved at us! and wrote: %s", msg.sender, _message);
+
+        // Storing the wave data into array
+        waves.push(Wave(msg.sender, _message, block.timestamp));
+
+        // Emitting NewWave Event
+        // These logs get stored in the blockchain and are accessible using address of the contract
+        emit NewWave(msg.sender, block.timestamp, _message);
     }
 
     function getTotalWaves() public view returns (uint256){
-        console.log("A total of %d good people waved at us!", totalWaves);
         return totalWaves;
     }
 
-    function getRecentMsg() public view returns (string memory){
-        return message;
+    function getAllWaves() public view returns (Wave[] memory){
+        return waves;
     }
 }
