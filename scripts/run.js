@@ -18,9 +18,12 @@ const main = async () => {
     let contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
     console.log("Contract Balance: ", hre.ethers.utils.formatEther(contractBalance));
 
-    // Wave
-    let waveTxn = await waveContract.wave("I'm the Owner");
+    // Wave 
+    let waveTxn = await waveContract.wave("Wave #1");
     await waveTxn.wait(); // Wait for the transaction to be mined
+
+    let waveTxn2 = await waveContract.wave("Wave #2");
+    await waveTxn2.wait(); // Wait for the transaction to be mined
     
     contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
     console.log("Contract Balance: ", hre.ethers.utils.formatEther(contractBalance));
