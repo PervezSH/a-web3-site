@@ -4,7 +4,7 @@ This project demonstrates a basic Hardhat use case. It comes with a sample contr
 
 Used this smart contract on a web app, have a look 👀 by clicking the link 🔗 given below
 
-https://frontend-waveportal.pervezsh.repl.co/
+https://waveportal-web-app.pervezsh.repl.co/
 
 Here, you can wave at me and drop a message by connecting you MetaMask wallet.
 
